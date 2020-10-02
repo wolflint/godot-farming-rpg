@@ -1,29 +1,25 @@
 extends TileMap
 
 func _process(delta):
+#	_mouse_in_player_range()
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
 		var mousePos = self.get_local_mouse_position()
-		var cell_pos = world_to_map(mousePos)
-		var cell = get_cellv(cell_pos)
-		_change_tile(cell, cell_pos)
+		var mouseTilePos = world_to_map(mousePos)
+		var cell = get_cellv(mouseTilePos)
+		if _mouse_in_player_range(mouseTilePos):
+			_change_tile(cell, mouseTilePos)
 
-func _change_tile(cell, cell_pos):
+func _change_tile(cell, mouseTilePos):
 	# Check if the clicked tile is a dirt tile
 	if cell == 0:
 		# Set tile to a tilled tile
-		set_cellv(cell_pos, 12)
-		print("Changed cell ", cell_pos)
+		set_cellv(mouseTilePos, 12)
+		print("Changed cell ", mouseTilePos)
 	elif cell != -1:
 		print("Clicked on cell ", self.tile_set.tile_get_name(cell))
 
-func _check_player_range():
-	pass
-# Changed cell (0, 0)
-# Changed cell (1, 0)
-# Changed cell (1, 1)
-# Changed cell (0, 1)
-# Changed cell (-1, 1)
-# Changed cell (-1, 0)
-# Changed cell (-1, -1)
-# Changed cell (0, -1)
-# Changed cell (1, -1)
+func _mouse_in_player_range(mouseTilePos):
+	var playerTile = world_to_map($Player.position)
+	if mouseTilePos.x in range(playerTile.x - 1, playerTile.x + 2) and mouseTilePos.y in range(playerTile.y - 1, playerTile.y + 2):
+		return true
+	return false
