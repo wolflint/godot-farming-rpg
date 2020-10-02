@@ -1,15 +1,27 @@
 extends TileMap
 
+var cursor_arrow = load("res://Rand/cursor_arrow.png")
+var cursor_hoe = load("res://Rand/cursor_hoe.png")
+
 func _unhandled_input(event):
+	var mousePos = self.get_local_mouse_position()
+	var mouseTilePos = world_to_map(mousePos)
+	
+	if event is InputEventMouseMotion:
+		if _mouse_in_player_range(mouseTilePos):
+			_change_cursor(cursor_hoe)
+		else:
+			_change_cursor(cursor_arrow)
 	
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
 		
-		var mousePos = self.get_local_mouse_position()
-		var mouseTilePos = world_to_map(mousePos)
 		var cell = get_cellv(mouseTilePos)
 		
 		if _mouse_in_player_range(mouseTilePos):
 			_change_tile(cell, mouseTilePos)
+
+func _change_cursor(cursor):
+	Input.set_custom_mouse_cursor(cursor)
 
 func _change_tile(cell, mouseTilePos):
 	# Check if the clicked tile is a dirt tile

@@ -26,6 +26,7 @@ window/size/height=720
 window/size/test_width=1280
 window/size/test_height=720
 window/dpi/allow_hidpi=true
+mouse_cursor/custom_image="res://Rand/cursor_arrow.png"
 
 [importer_defaults]
 
