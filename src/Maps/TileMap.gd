@@ -8,7 +8,9 @@ func _process(delta):
 		_change_tile(cell, cell_pos)
 
 func _change_tile(cell, cell_pos):
+	# Check if the clicked tile is a dirt tile
 	if cell == 0:
+		# Set tile to a tilled tile
 		set_cellv(cell_pos, 12)
 		print("Changed cell ", cell_pos)
 	elif cell != -1:
