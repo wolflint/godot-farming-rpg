@@ -155,10 +155,6 @@ frame = 10
 visible = false
 shape = SubResource( 1 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-zoom = Vector2( 0.1, 0.1 )
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/IDLE = SubResource( 2 )
 anims/WALK_DOWN = SubResource( 3 )
