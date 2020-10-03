@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/item_slot_default_background.png-ad4c7db60534b006caebe54b4e12d279.stex"
+path="res://.import/ItemSlotEmptyBackground.png-93e4e6b7e7dff7753a1aeb597490dd00.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Rand/item_slot_default_background.png"
-dest_files=[ "res://.import/item_slot_default_background.png-ad4c7db60534b006caebe54b4e12d279.stex" ]
+source_file="res://UI/Inventory/ItemSlotEmptyBackground.png"
+dest_files=[ "res://.import/ItemSlotEmptyBackground.png-93e4e6b7e7dff7753a1aeb597490dd00.stex" ]
 
 [params]
 
