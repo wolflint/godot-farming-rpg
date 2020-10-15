@@ -10,11 +10,12 @@ texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 18, 18 )
 
 [node name="Inventory" type="Node2D"]
+scale = Vector2( 3, 3 )
 script = ExtResource( 4 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 207.0
+margin_bottom = 112.0
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

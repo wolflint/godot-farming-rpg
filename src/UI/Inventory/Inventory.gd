@@ -5,6 +5,9 @@ onready var inventory_slots = $GridContainer
 var holding_item = null
 
 func _ready():
+	var viewport_size = Viewport.size
+
+
 	for inv_slot in inventory_slots.get_children():
 		inv_slot.connect("gui_input", self, "slot_gui_input", [inv_slot])
 
