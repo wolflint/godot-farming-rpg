@@ -3,6 +3,7 @@ extends KinematicBody2D
 # Cursor Sprites
 var cursorArrow = load("res://Rand/cursor_arrow.png")
 var cursorHoe = load("res://Rand/cursor_hoe.png")
+onready var ToolHitIndicator = get_parent().get_node("ToolHitIndicatorSprite")
 
 # Physics
 export var ACCELERATION = 500
@@ -27,14 +28,10 @@ signal entered_level(player)
 
 # Get the current level.
 onready var CurrentLevel = get_parent()
-onready var ToolHitIndicator = $ToolHitIndicatorSprite
 var state = MOVE
 var velocity = Vector2.ZERO
 
 func _ready():
-#	connect("entered_level", CurrentLevel, "on_player_entered_level")
-#	if CurrentLevel != null:
-#		emit_signal("entered_level", self)
 	animationTree.active = true
 
 func _physics_process(delta):
@@ -50,12 +47,13 @@ func _unhandled_input(event):
 	var player_tilepos = CurrentLevel.get_player_tilemap_position(self)
 	
 	# Toggle between Hoe/Arrow cursor when player hovers in/out of his range
-	
 	if event is InputEventMouseMotion:
 		if CurrentLevel.check_players_click_range(player_tilepos, hovered_tile):
 			change_cursor(cursorHoe)
+			ToolHitIndicator.AnimPlayer.play("IN_RANGE")
 		else:
 			change_cursor(cursorArrow)
+			ToolHitIndicator.AnimPlayer.play("OUT_OF_RANGE")
 	
 	# If mouse is clicked within the player's range, till the soil
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
@@ -87,9 +85,6 @@ func move_state(delta):
 func update_tool_hit_location(input_vector):
 	if not input_vector:
 		return
-	ToolHitIndicator.global_position = CurrentLevel.request_tool_hit_location(self, input_vector)
-	print("Player global position: " + str(global_position))
-	print("ToolHitIndicator global position: " + str(ToolHitIndicator.global_position))
 
 func get_input_vector():
 	var input_vector = Vector2(

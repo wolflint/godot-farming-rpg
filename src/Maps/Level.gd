@@ -2,10 +2,6 @@ extends TileMap
 
 onready var Player = get_node("Player")
 
-func _process(delta):
-	if Player.last_direction != Vector2.ZERO:
-		request_tool_hit_location(Player, Player.last_direction)
-
 func change_tile(cell, clicked_tile):
 	# Check if the clicked tile is a dirt tile
 	if cell == 0:
@@ -14,13 +10,6 @@ func change_tile(cell, clicked_tile):
 		print("Changed cell ", clicked_tile)
 	elif cell != -1:
 		print("Clicked on cell ", self.tile_set.tile_get_name(cell))
-
-func request_tool_hit_location(player, direction):
-	var player_cell = world_to_map(player.global_position)
-	print("Player cell: " + str(player_cell))
-	var tool_hit_target_cell = player_cell + direction
-	print("Tool Hit Target Cell: " + str(tool_hit_target_cell))
-	player.ToolHitIndicator.global_position = map_to_world(tool_hit_target_cell, true)
 
 func get_player_tilemap_position(player):
 	return world_to_map(player.position)
