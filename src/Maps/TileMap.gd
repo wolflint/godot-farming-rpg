@@ -9,6 +9,11 @@ func change_tile(cell, clicked_tile):
 	elif cell != -1:
 		print("Clicked on cell ", self.tile_set.tile_get_name(cell))
 
+func request_tool_hit_location(player, direction):
+	var player_cell = world_to_map(player.position)
+	var tool_hit_target_cell = player_cell + direction
+	return map_to_world(tool_hit_target_cell) * cell_size
+
 func get_player_tilemap_position(player):
 	return world_to_map(player.position)
 
