@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Iron Sword.png-c8cc855fa3c4ddb1ee97c0c36569472f.stex"
+path="res://.import/iron_sword.png-c4814d3c1f3419e47849e3bda0adebef.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Rand/Iron Sword.png"
-dest_files=[ "res://.import/Iron Sword.png-c8cc855fa3c4ddb1ee97c0c36569472f.stex" ]
+source_file="res://UI/Inventory/Items/iron_sword.png"
+dest_files=[ "res://.import/iron_sword.png-c4814d3c1f3419e47849e3bda0adebef.stex" ]
 
 [params]
 

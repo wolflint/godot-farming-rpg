@@ -5,9 +5,6 @@ onready var inventory_slots = $GridContainer
 var holding_item = null
 
 func _ready():
-	var viewport_size = Viewport.size
-
-
 	for inv_slot in inventory_slots.get_children():
 		inv_slot.connect("gui_input", self, "slot_gui_input", [inv_slot])
 
@@ -18,12 +15,25 @@ func slot_gui_input(event: InputEvent, slot: SlotClass):
 				if !slot.item: # Place holding item to slot
 					slot.putIntoSlot(holding_item)
 					holding_item = null
-				else: # Swap holding item with item in slot
-					var temp_item = slot.item
-					slot.pickFromSlot()
-					temp_item.global_position = event.global_position
-					slot.putIntoSlot(holding_item)
-					holding_item = temp_item
+				else: 
+					# If the items are different, swap them
+					if holding_item.item_path != slot.item.item_path:
+						var temp_item = slot.item
+						slot.pickFromSlot()
+						temp_item.global_position = event.global_position
+						slot.putIntoSlot(holding_item)
+						holding_item = temp_item
+					# If the items are the same, try to merge them
+					else:
+						var stack_size = int(ItemData.item_data[slot.item.item_path]["StackSize"])
+						var able_to_add = stack_size - slot.item.item_quantity
+						if able_to_add >= holding_item.item_quantity:
+							slot.item.add_item_quantity(holding_item.item_quantity)
+							holding_item.queue_free()
+							holding_item = null
+						else:
+							slot.item.add_item_quantity(able_to_add)
+							holding_item.remove_item_quantity(able_to_add)
 			elif slot.item:
 				holding_item = slot.item
 				slot.pickFromSlot()

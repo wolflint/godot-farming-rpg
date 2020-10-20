@@ -19,6 +19,10 @@ config/name="Farming RPG"
 run/main_scene="res://Maps/TestMap.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+ItemData="*res://Data/ItemData.gd"
+
 [display]
 
 window/size/width=320

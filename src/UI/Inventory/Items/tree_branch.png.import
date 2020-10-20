@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Tree Branch.png-780cf2efdc4b6551bf2860fec7e84c18.stex"
+path="res://.import/tree_branch.png-b96e6d9ac8075f6d9e0de4c85c28aed1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Rand/Tree Branch.png"
-dest_files=[ "res://.import/Tree Branch.png-780cf2efdc4b6551bf2860fec7e84c18.stex" ]
+source_file="res://UI/Inventory/Items/tree_branch.png"
+dest_files=[ "res://.import/tree_branch.png-b96e6d9ac8075f6d9e0de4c85c28aed1.stex" ]
 
 [params]
 

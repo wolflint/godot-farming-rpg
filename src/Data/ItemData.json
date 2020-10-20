@@ -1,0 +1,16 @@
+{
+    "tree_branch": {
+    	"ItemName": "Tree Branch",
+        "ItemCategory": "Resource",
+        "StackSize": 99,
+        "Description": "It's just a stick."
+    },
+    "iron_sword": {
+    	"Item_Name": "Iron Sword",
+        "ItemCategory": "Sword",
+        "ItemAttack": 3,
+        "ItemSpeed": 0.75,
+        "StackSize": 1,
+        "Description": "It is dangerous to go alone! Take this."
+    }
+}

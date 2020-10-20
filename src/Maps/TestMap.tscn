@@ -6,6 +6,7 @@
 position = Vector2( 320, 180 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 8, 8 )
 current = true
 smoothing_enabled = true
 smoothing_speed = 3.0
