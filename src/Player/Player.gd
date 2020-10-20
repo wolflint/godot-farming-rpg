@@ -48,17 +48,22 @@ func _unhandled_input(event):
 	
 	# Toggle between Hoe/Arrow cursor when player hovers in/out of his range
 	if event is InputEventMouseMotion:
-		if CurrentLevel.check_players_click_range(player_tilepos, hovered_tile):
+		if CurrentLevel.check_players_hit_range(player_tilepos, hovered_tile):
 			change_cursor(cursorHoe)
+			ToolHitIndicator.visible = true
 			ToolHitIndicator.AnimPlayer.play("IN_RANGE")
+		elif CurrentLevel.check_players_hit_range(player_tilepos, hovered_tile, 2):
+			change_cursor(cursorArrow)
+			ToolHitIndicator.visible = true
+			ToolHitIndicator.AnimPlayer.play("OUT_OF_RANGE")
 		else:
 			change_cursor(cursorArrow)
-			ToolHitIndicator.AnimPlayer.play("OUT_OF_RANGE")
+			ToolHitIndicator.visible = false
 	
 	# If mouse is clicked within the player's range, till the soil
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
 		var cell = CurrentLevel.get_cellv(hovered_tile)
-		if CurrentLevel.check_players_click_range(player_tilepos, hovered_tile):
+		if CurrentLevel.check_players_hit_range(player_tilepos, hovered_tile):
 			CurrentLevel.change_tile(cell, hovered_tile)
 
 func change_cursor(cursor):

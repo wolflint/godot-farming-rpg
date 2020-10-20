@@ -4,7 +4,7 @@
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 3.0
+radius = 2.0
 height = 8.0
 
 [sub_resource type="Animation" id=2]
@@ -400,10 +400,11 @@ start_node = "IDLE"
 [sub_resource type="AnimationNodeStateMachinePlayback" id=23]
 
 [node name="Player" type="KinematicBody2D"]
+position = Vector2( 8, 8 )
 script = ExtResource( 2 )
 
 [node name="Body" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, -24 )
+position = Vector2( 0, -22 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708
