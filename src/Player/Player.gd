@@ -22,6 +22,7 @@ enum {
 
 # Input
 var last_direction = Vector2.ZERO
+var controller_connected = null
 
 # Signals
 signal entered_level(player)
@@ -33,6 +34,7 @@ var velocity = Vector2.ZERO
 
 func _ready():
 	animationTree.active = true
+	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 
 func _physics_process(delta):
 	match state:
@@ -101,4 +103,12 @@ func get_input_vector():
 
 func move():
 	velocity = move_and_slide(velocity)
-		
+
+func _on_joy_connection_changed(device_id, connected):
+	if connected:
+		print(Input.get_joy_name(device_id) + " connected.")
+		controller_connected = true
+	else:
+		print("Game controller disconnected.")
+		controller_connected = false
+	
