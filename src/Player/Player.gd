@@ -19,6 +19,9 @@ enum {
 	MOVE,
 }
 
+# Input
+var last_direction = Vector2.ZERO
+
 # Signals
 signal entered_level(player)
 
@@ -60,14 +63,12 @@ func _unhandled_input(event):
 		if CurrentLevel.check_players_click_range(player_tilepos, hovered_tile):
 			CurrentLevel.change_tile(cell, hovered_tile)
 
-
 func change_cursor(cursor):
 	Input.set_custom_mouse_cursor(cursor)
 
 func move_state(delta):
 	# Set input vector
 	var input_vector = get_input_vector()
-	update_tool_hit_location(input_vector)
 	
 	if input_vector != Vector2.ZERO:
 		# Set animationTree params
@@ -89,13 +90,13 @@ func update_tool_hit_location(input_vector):
 	ToolHitIndicator.global_position = CurrentLevel.request_tool_hit_location(self, input_vector)
 	print("Player global position: " + str(global_position))
 	print("ToolHitIndicator global position: " + str(ToolHitIndicator.global_position))
-	
 
 func get_input_vector():
 	var input_vector = Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	)
+	last_direction = input_vector
 	return input_vector.normalized()
 
 func move():
