@@ -12,7 +12,7 @@ func change_tile(cell, clicked_tile):
 func request_tool_hit_location(player, direction):
 	var player_cell = world_to_map(player.position)
 	var tool_hit_target_cell = player_cell + direction
-	return map_to_world(tool_hit_target_cell) * cell_size
+	return map_to_world(tool_hit_target_cell)
 
 func get_player_tilemap_position(player):
 	return world_to_map(player.position)
