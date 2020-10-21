@@ -43,6 +43,13 @@ func _physics_process(delta):
 		MOVE:
 			move_state(delta)
 
+func _input(event):
+	if event.is_action_pressed("pickup"):
+		if $ItemPickupZone.items_in_range.size() > 0:
+			var pickup_item = $ItemPickupZone.items_in_range.values()[0]
+			pickup_item.pick_up_item(self)
+			$ItemPickupZone.items_in_range.erase(pickup_item)
+
 func _unhandled_input(event):
 	var mouse_hover_pos = CurrentLevel.get_local_mouse_position()
 	var hovered_tile = CurrentLevel.world_to_map(mouse_hover_pos)
