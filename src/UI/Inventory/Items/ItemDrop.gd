@@ -11,6 +11,7 @@ var being_picked_up = false
 
 func _ready():
 	item_id = "tree_branch"
+	$AnimationPlayer.play("FLOAT")
 
 func _physics_process(delta):
 	if being_picked_up == false:
