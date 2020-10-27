@@ -20,7 +20,9 @@ func add_item(item_id, item_quantity):
 
 
 func move_item(slot_id, new_slot_id):
-	pass
+	var slot_contents = inventory[slot_id]
+	inventory.erase(slot_id)
+	inventory[new_slot_id] = slot_contents
 
 func get_available_slot(item_id, item_quantity):
 	for slot in MAX_INVENTORY_SLOTS:

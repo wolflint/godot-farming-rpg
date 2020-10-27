@@ -9,6 +9,8 @@ var empty_style: StyleBoxTexture = null
 var ItemClass = preload("res://UI/Inventory/Items/Item.tscn")
 var item = null
 
+var slot_id = null
+
 func _ready():
 
 	default_style = StyleBoxTexture.new()
@@ -16,9 +18,6 @@ func _ready():
 	default_style.texture = default_tex
 	empty_style.texture = empty_tex
 
-#	if randi() % 2 == 0:
-#		item = ItemClass.instance()
-#		add_child(item)
 	refresh_style()
 
 func refresh_style():

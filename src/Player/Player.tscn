@@ -79,26 +79,25 @@ radius = 16.6189
 position = Vector2( 8, 8 )
 script = ExtResource( 2 )
 
-[node name="CompositeSprite" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, -20 )
-
-[node name="Body" parent="CompositeSprite" index="0"]
-frame = 8
-
-[node name="Top" parent="CompositeSprite" index="1"]
-frame = 8
-
-[node name="Bottom" parent="CompositeSprite" index="2"]
-frame = 8
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708
 shape = SubResource( 1 )
 
+[node name="CompositeSprite" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -20 )
+
+[node name="Body" parent="CompositeSprite" index="0"]
+frame = 6
+
+[node name="Top" parent="CompositeSprite" index="1"]
+frame = 6
+
+[node name="Bottom" parent="CompositeSprite" index="2"]
+frame = 6
+
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 14 )
 anim_player = NodePath("../CompositeSprite/AnimationPlayer")
-active = true
 parameters/playback = SubResource( 15 )
 parameters/IDLE/blend_position = Vector2( -0.363636, -0.189655 )
 parameters/WALK/blend_position = Vector2( 0.0509977, 0.748454 )
