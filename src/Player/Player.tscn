@@ -9,7 +9,7 @@ radius = 2.0
 height = 8.0
 
 [sub_resource type="AnimationNodeAnimation" id=2]
-animation = "WALK_DOWN"
+animation = "IDLE_DOWN"
 
 [sub_resource type="AnimationNodeAnimation" id=3]
 animation = "IDLE_RIGHT"
@@ -99,7 +99,7 @@ frame = 6
 tree_root = SubResource( 14 )
 anim_player = NodePath("../CompositeSprite/AnimationPlayer")
 parameters/playback = SubResource( 15 )
-parameters/IDLE/blend_position = Vector2( -0.363636, -0.189655 )
+parameters/IDLE/blend_position = Vector2( -0.0225819, -0.562891 )
 parameters/WALK/blend_position = Vector2( 0.0509977, 0.748454 )
 
 [node name="ItemPickupZone" type="Area2D" parent="."]

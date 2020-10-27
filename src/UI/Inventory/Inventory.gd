@@ -7,8 +7,6 @@ var holding_item = null
 func _ready():
 	for inv_slot in inventory_slots.get_children():
 		inv_slot.connect("gui_input", self, "slot_gui_input", [inv_slot])
-		inv_slot.slot_id = inv_slot
-		print(inv_slot.slot_id)
 	initialise_inventory()
 
 func initialise_inventory():
