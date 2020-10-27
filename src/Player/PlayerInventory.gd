@@ -25,11 +25,15 @@ func move_item(slot_id, new_slot_id):
 	inventory[new_slot_id] = slot_contents
 
 func get_available_slot(item_id, item_quantity):
-	for slot in MAX_INVENTORY_SLOTS:
-		if not inventory.has(slot):
-			return inventory.size()
-		var stack_size = ItemData.item_data[item_id]["StackSize"]
-		var total_item_quantity = inventory[slot][1] + item_quantity
-		if inventory[slot][0] == item_id and total_item_quantity <= stack_size:
-			return slot
+	var first_empty_slot = null
+	var stack_size = ItemData.item_data[item_id]["StackSize"]
+	for slot in range(MAX_INVENTORY_SLOTS):
+		if !inventory.has(slot) && first_empty_slot == null:
+			first_empty_slot = slot
+		elif inventory.has(slot):
+			var total_item_quantity = inventory[slot][1] + item_quantity
+			if inventory[slot][0] == item_id and total_item_quantity <= stack_size:
+				return slot
+	if first_empty_slot != null:
+		return first_empty_slot
 	return -1 # Return -1, which means that the inventory is full
