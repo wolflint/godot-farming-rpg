@@ -340,19 +340,19 @@ script = ExtResource( 4 )
 scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 hframes = 26
-frame = 2
+frame = 7
 
 [node name="Top" type="Sprite" parent="."]
 scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 1 )
 hframes = 26
-frame = 2
+frame = 7
 
 [node name="Bottom" type="Sprite" parent="."]
 scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 hframes = 26
-frame = 2
+frame = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/IDLE_DOWN = SubResource( 1 )

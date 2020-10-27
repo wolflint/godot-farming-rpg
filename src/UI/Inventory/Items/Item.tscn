@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://UI/Inventory/Items/Item.gd" type="Script" id=1]
-[ext_resource path="res://UI/Inventory/Items/Iron Sword.png" type="Texture" id=2]
+[ext_resource path="res://UI/Inventory/Items/iron_sword.png" type="Texture" id=2]
+
 
 [node name="Item" type="Node2D"]
 z_index = 1

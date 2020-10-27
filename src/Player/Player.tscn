@@ -4,67 +4,75 @@
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Player/ItemPickupZone.gd" type="Script" id=3]
 
-[sub_resource type="CapsuleShape2D" id=9]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 2.0
 height = 8.0
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=2]
+animation = "WALK_DOWN"
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "IDLE_RIGHT"
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "IDLE_UP"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "IDLE_LEFT"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=14]
-blend_point_0/node = SubResource( 10 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=6]
+blend_point_0/node = SubResource( 2 )
 blend_point_0/pos = Vector2( 0, 1.1 )
-blend_point_1/node = SubResource( 11 )
+blend_point_1/node = SubResource( 3 )
 blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 12 )
+blend_point_2/node = SubResource( 4 )
 blend_point_2/pos = Vector2( 0, -1.1 )
-blend_point_3/node = SubResource( 13 )
+blend_point_3/node = SubResource( 5 )
 blend_point_3/pos = Vector2( -1, 0 )
 min_space = Vector2( -1, -1.1 )
 max_space = Vector2( 1, 1.1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id=15]
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "WALK_DOWN"
 
-[sub_resource type="AnimationNodeAnimation" id=16]
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "WALK_UP"
 
-[sub_resource type="AnimationNodeAnimation" id=17]
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "WALK_RIGHT"
 
-[sub_resource type="AnimationNodeAnimation" id=18]
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "WALK_LEFT"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=19]
-blend_point_0/node = SubResource( 15 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=11]
+blend_point_0/node = SubResource( 7 )
 blend_point_0/pos = Vector2( 0, 1.1 )
-blend_point_1/node = SubResource( 16 )
+blend_point_1/node = SubResource( 8 )
 blend_point_1/pos = Vector2( 0, -1.1 )
-blend_point_2/node = SubResource( 17 )
+blend_point_2/node = SubResource( 9 )
 blend_point_2/pos = Vector2( 1, 0 )
-blend_point_3/node = SubResource( 18 )
+blend_point_3/node = SubResource( 10 )
 blend_point_3/pos = Vector2( -1, 0 )
 min_space = Vector2( -1, -1.1 )
 max_space = Vector2( 1, 1.1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
 
-[sub_resource type="AnimationNodeStateMachine" id=22]
-states/IDLE/node = SubResource( 14 )
+[sub_resource type="AnimationNodeStateMachine" id=14]
+states/IDLE/node = SubResource( 6 )
 states/IDLE/position = Vector2( 346.5, 84 )
-states/WALK/node = SubResource( 19 )
+states/WALK/node = SubResource( 11 )
 states/WALK/position = Vector2( 547, 84 )
-transitions = [ "IDLE", "WALK", SubResource( 20 ), "WALK", "IDLE", SubResource( 21 ) ]
+transitions = [ "IDLE", "WALK", SubResource( 12 ), "WALK", "IDLE", SubResource( 13 ) ]
 start_node = "IDLE"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=23]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=15]
 
-[sub_resource type="CircleShape2D" id=24]
+[sub_resource type="CircleShape2D" id=16]
 radius = 16.6189
 
 [node name="Player" type="KinematicBody2D"]
@@ -72,17 +80,28 @@ position = Vector2( 8, 8 )
 script = ExtResource( 2 )
 
 [node name="CompositeSprite" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -20 )
+
+[node name="Body" parent="CompositeSprite" index="0"]
+frame = 8
+
+[node name="Top" parent="CompositeSprite" index="1"]
+frame = 8
+
+[node name="Bottom" parent="CompositeSprite" index="2"]
+frame = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708
-shape = SubResource( 9 )
+shape = SubResource( 1 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 22 )
+tree_root = SubResource( 14 )
 anim_player = NodePath("../CompositeSprite/AnimationPlayer")
-parameters/playback = SubResource( 23 )
-parameters/IDLE/blend_position = Vector2( 0.00215149, 1.09735 )
-parameters/WALK/blend_position = Vector2( 0.00104821, 0.00676918 )
+active = true
+parameters/playback = SubResource( 15 )
+parameters/IDLE/blend_position = Vector2( -0.363636, -0.189655 )
+parameters/WALK/blend_position = Vector2( 0.0509977, 0.748454 )
 
 [node name="ItemPickupZone" type="Area2D" parent="."]
 collision_layer = 0
@@ -90,6 +109,8 @@ collision_mask = 4
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickupZone"]
-shape = SubResource( 24 )
+shape = SubResource( 16 )
 [connection signal="body_entered" from="ItemPickupZone" to="ItemPickupZone" method="_on_ItemPickupZone_body_entered"]
 [connection signal="body_exited" from="ItemPickupZone" to="ItemPickupZone" method="_on_ItemPickupZone_body_exited"]
+
+[editable path="CompositeSprite"]
