@@ -45,6 +45,16 @@ func slot_gui_input(event: InputEvent, slot: SlotClass):
 				holding_item = slot.item
 				slot.pickFromSlot()
 				holding_item.global_position = get_global_mouse_position()
+	if not holding_item:
+		update_player_inventory()
+
+func update_player_inventory():
+	var slots =  inventory_slots.get_children()
+	var new_inventory = {}
+	for i in range(slots.size()):
+		if slots[i].item != null:
+			new_inventory[i] = [slots[i].item.item_id, slots[i].item.item_quantity]
+	PlayerInventory.inventory = new_inventory
 
 func _input(_event):
 	if holding_item:
