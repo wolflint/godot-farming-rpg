@@ -5,12 +5,32 @@ const MAX_INVENTORY_SLOTS = 20
 var inventory = {
 	0: ["iron_sword", 1], # --> slot_index: [item_path, item_quantity]
 	1: ["tree_branch", 98],
+	2: ["tree_branch", 99],
+	3: ["tree_branch", 99],
+	4: ["tree_branch", 99],
+	5: ["tree_branch", 99],
+	6: ["tree_branch", 99],
+	7: ["tree_branch", 99],
+	8: ["tree_branch", 99],
+	9: ["tree_branch", 99],
+	10: ["tree_branch", 99],
+	11: ["tree_branch", 99],
+	12: ["tree_branch", 99],
+	13: ["tree_branch", 99],
+	14: ["tree_branch", 99],
+	15: ["tree_branch", 99],
+	16: ["tree_branch", 99],
+	17: ["tree_branch", 99],
+	18: ["tree_branch", 99],
+	19: ["tree_branch", 99],
 }
 
-func add_item(item_id, item_quantity):
+func add_item(item_drop):
+	var item_id = item_drop.item_id
+	var item_quantity = item_drop.item_quantity
 	var available_slot = get_available_slot(item_id, item_quantity)
 	if available_slot == -1:
-		# TODO: Can't pick up the item, put the item in non pickupable state until a different body enters it's collision shape
+		item_drop.being_picked_up = false
 		return
 	if not inventory.has(available_slot):
 		inventory[available_slot] = [item_id, item_quantity]

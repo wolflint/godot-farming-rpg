@@ -24,6 +24,9 @@ enum {
 var last_direction = Vector2.ZERO
 var controller_connected = null
 
+# Inventory and items
+onready var pickup_zone = $ItemPickupZone
+
 # Signals
 signal entered_level(player)
 
@@ -35,6 +38,7 @@ var velocity = Vector2.ZERO
 func _ready():
 	animationTree.active = true
 	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
+	pickup_zone.player = self
 
 func _physics_process(delta):
 	match state:
@@ -43,12 +47,12 @@ func _physics_process(delta):
 		MOVE:
 			move_state(delta)
 
-func _input(event):
-	if event.is_action_pressed("pickup"):
-		if $ItemPickupZone.items_in_range.size() > 0:
-			var pickup_item = $ItemPickupZone.items_in_range.values()[0]
-			pickup_item.pick_up_item(self)
-			$ItemPickupZone.items_in_range.erase(pickup_item)
+#func _input(event):
+#	if event.is_action_pressed("pickup"):
+#		if $ItemPickupZone.items_in_range.size() > 0:
+#			var pickup_item = $ItemPickupZone.items_in_range.values()[0]
+#			pickup_item.pick_up_item(self)
+#			$ItemPickupZone.items_in_range.erase(pickup_item)
 
 func _unhandled_input(event):
 	var mouse_hover_pos = CurrentLevel.get_local_mouse_position()
