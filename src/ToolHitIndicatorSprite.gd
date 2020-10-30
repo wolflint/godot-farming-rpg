@@ -2,7 +2,7 @@ extends Sprite
 
 onready var mouse_position = get_global_mouse_position()
 onready var AnimPlayer = $AnimationPlayer
-onready var Level = get_parent()
+onready var Level = get_tree().get_root().get_node("World").get_node("Level")
 
 func _ready():
 	visible = false

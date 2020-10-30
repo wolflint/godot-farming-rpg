@@ -27,11 +27,8 @@ var controller_connected = null
 # Inventory and items
 onready var pickup_zone = $ItemPickupZone
 
-# Signals
-signal entered_level(player)
-
 # Get the current level.
-onready var CurrentLevel = get_parent()
+onready var CurrentLevel = get_tree().get_root().get_node("World").get_node("Level")
 var state = MOVE
 var velocity = Vector2.ZERO
 
@@ -59,8 +56,8 @@ func _unhandled_input(event):
 	var hovered_tile = CurrentLevel.world_to_map(mouse_hover_pos)
 	var player_tilepos = CurrentLevel.get_player_tilemap_position(self)
 	
-	# Toggle between Hoe/Arrow cursor when player hovers in/out of his range
 	if event is InputEventMouseMotion:
+	# Toggle between Hoe/Arrow cursor when player hovers in/out of his range
 		if CurrentLevel.check_players_hit_range(player_tilepos, hovered_tile):
 			change_cursor(cursorHoe)
 			ToolHitIndicator.visible = true
@@ -97,7 +94,6 @@ func move_state(delta):
 		animationState.travel("IDLE")
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 		var player_tilepos = CurrentLevel.get_player_tilemap_position(self)
-		var tool_hit_location_tilepos = player_tilepos + input_vector
 	move()
 
 func update_tool_hit_location(input_vector):
