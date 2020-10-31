@@ -86,21 +86,12 @@ shape = SubResource( 1 )
 [node name="CompositeSprite" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, -20 )
 
-[node name="Body" parent="CompositeSprite" index="0"]
-frame = 6
-
-[node name="Top" parent="CompositeSprite" index="1"]
-frame = 6
-
-[node name="Bottom" parent="CompositeSprite" index="2"]
-frame = 6
-
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 14 )
 anim_player = NodePath("../CompositeSprite/AnimationPlayer")
 parameters/playback = SubResource( 15 )
-parameters/IDLE/blend_position = Vector2( -0.0225819, -0.562891 )
-parameters/WALK/blend_position = Vector2( 0.0509977, 0.748454 )
+parameters/IDLE/blend_position = Vector2( 0, 1 )
+parameters/WALK/blend_position = Vector2( 0, 0 )
 
 [node name="ItemPickupZone" type="Area2D" parent="."]
 collision_layer = 0

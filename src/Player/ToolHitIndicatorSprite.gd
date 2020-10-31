@@ -14,3 +14,10 @@ func _unhandled_input(event):
 		mouse_position = get_global_mouse_position()
 		var hovered_cell = Level.world_to_map(mouse_position)
 		global_position = Level.map_to_world(hovered_cell)
+
+func _on_player_idling(player):
+	# TODO: fix the tool hit indicator. Diagonal input vectors can mess it up
+	visible = true
+	AnimPlayer.play("IN_RANGE")
+	var player_position = Level.world_to_map(player.global_position)
+	global_position = Level.map_to_world(player_position + player.last_input_direction)

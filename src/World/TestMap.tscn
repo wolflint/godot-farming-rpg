@@ -7,8 +7,6 @@
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Player/ToolHitIndicatorSprite.tscn" type="PackedScene" id=6]
 
-
-
 [node name="World" type="Node2D"]
 position = Vector2( 320, 180 )
 

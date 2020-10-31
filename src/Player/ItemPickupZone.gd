@@ -1,7 +1,7 @@
 extends Area2D
 
 var items_in_range = {}
-var player = null
+var Player = null
 
 func _ready():
 	pass
@@ -9,7 +9,7 @@ func _ready():
 
 func _on_ItemPickupZone_body_entered(body):
 	items_in_range[body] = body
-	body.pick_up_item(player)
+	body.pick_up_item(Player)
 
 
 func _on_ItemPickupZone_body_exited(body):
