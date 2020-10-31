@@ -44,31 +44,13 @@ func _physics_process(delta):
 		MOVE:
 			move_state(delta)
 
-#func _input(event):
-#	if event.is_action_pressed("pickup"):
-#		if $ItemPickupZone.items_in_range.size() > 0:
-#			var pickup_item = $ItemPickupZone.items_in_range.values()[0]
-#			pickup_item.pick_up_item(self)
-#			$ItemPickupZone.items_in_range.erase(pickup_item)
-
 func _unhandled_input(event):
 	var mouse_hover_pos = CurrentLevel.get_local_mouse_position()
 	var hovered_tile = CurrentLevel.world_to_map(mouse_hover_pos)
 	var player_tilepos = CurrentLevel.get_player_tilemap_position(self)
 	
 	if event is InputEventMouseMotion:
-	# Toggle between Hoe/Arrow cursor when player hovers in/out of his range
-		if CurrentLevel.check_players_hit_range(player_tilepos, hovered_tile):
-			change_cursor(cursorHoe)
-			ToolHitIndicator.visible = true
-			ToolHitIndicator.AnimPlayer.play("IN_RANGE")
-		elif CurrentLevel.check_players_hit_range(player_tilepos, hovered_tile, 2):
-			change_cursor(cursorArrow)
-			ToolHitIndicator.visible = true
-			ToolHitIndicator.AnimPlayer.play("OUT_OF_RANGE")
-		else:
-			change_cursor(cursorArrow)
-			ToolHitIndicator.visible = false
+		change_cursor(hovered_tile, player_tilepos)
 	
 	# If mouse is clicked within the player's range, till the soil
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
@@ -76,8 +58,18 @@ func _unhandled_input(event):
 		if CurrentLevel.check_players_hit_range(player_tilepos, hovered_tile):
 			CurrentLevel.change_tile(cell, hovered_tile)
 
-func change_cursor(cursor):
-	Input.set_custom_mouse_cursor(cursor)
+func change_cursor(hovered_tile, player_tilepos):
+	if CurrentLevel.check_players_hit_range(player_tilepos, hovered_tile):
+		Input.set_custom_mouse_cursor(cursorHoe)
+		ToolHitIndicator.visible = true
+		ToolHitIndicator.AnimPlayer.play("IN_RANGE")
+	elif CurrentLevel.check_players_hit_range(player_tilepos, hovered_tile, 2):
+		Input.set_custom_mouse_cursor(cursorArrow)
+		ToolHitIndicator.visible = true
+		ToolHitIndicator.AnimPlayer.play("OUT_OF_RANGE")
+	else:
+		Input.set_custom_mouse_cursor(cursorArrow)
+		ToolHitIndicator.visible = false
 
 func move_state(delta):
 	# Set input vector
