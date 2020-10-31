@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Farming RPG"
-run/main_scene="res://Maps/TestMap.tscn"
+run/main_scene="res://World/TestMap.tscn"
 config/icon="res://icon.png"
 
 [autoload]
