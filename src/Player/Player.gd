@@ -1,48 +1,48 @@
 extends KinematicBody2D
 
+onready var ToolHitIndicator = get_parent().get_node("ToolHitIndicatorSprite")
+onready var CurrentLevel = get_tree().get_root().get_node("World").get_node("Level")
+
+# Animation
+onready var AnimTree = $AnimationTree
+onready var animationState = AnimTree.get("parameters/playback")
+
 # Cursor Sprites
 var cursorArrow = load("res://Rand/cursor_arrow.png")
 var cursorHoe = load("res://Rand/cursor_hoe.png")
-onready var ToolHitIndicator = get_parent().get_node("ToolHitIndicatorSprite")
 
 # Physics
 export var ACCELERATION = 500
 export var MAX_SPEED = 80
 export var FRICTION = 500
-
-# Animation
-onready var animationTree = $AnimationTree
-onready var animationState = animationTree.get("parameters/playback")
+var velocity = Vector2.ZERO
 
 # States
 enum {
 	IDLE,
 	MOVE,
 }
+var state = MOVE
 
 # Input
-var last_direction = Vector2.ZERO
 var controller_connected = null
 
 # Inventory and items
 onready var pickup_zone = $ItemPickupZone
 
-# Get the current level.
-onready var CurrentLevel = get_tree().get_root().get_node("World").get_node("Level")
-var state = MOVE
-var velocity = Vector2.ZERO
-
 func _ready():
-	animationTree.active = true
+	AnimTree.active = true
 	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 	pickup_zone.player = self
 
 func _physics_process(delta):
+	var input_vector = get_input_vector()
 	match state:
 		IDLE:
-			pass
+			if input_vector != Vector2.ZERO:
+				state = MOVE
 		MOVE:
-			move_state(delta)
+			move_state(delta, input_vector)
 
 func _unhandled_input(event):
 	var mouse_hover_pos = CurrentLevel.get_local_mouse_position()
@@ -71,14 +71,11 @@ func change_cursor(hovered_tile, player_tilepos):
 		Input.set_custom_mouse_cursor(cursorArrow)
 		ToolHitIndicator.visible = false
 
-func move_state(delta):
-	# Set input vector
-	var input_vector = get_input_vector()
-	
+func move_state(delta, input_vector):
 	if input_vector != Vector2.ZERO:
-		# Set animationTree params
-		animationTree.set("parameters/IDLE/blend_position", input_vector)
-		animationTree.set("parameters/WALK/blend_position", input_vector)
+		# Set AnimTree params
+		AnimTree.set("parameters/IDLE/blend_position", input_vector)
+		AnimTree.set("parameters/WALK/blend_position", input_vector)
 		animationState.travel("WALK")
 		
 		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
@@ -88,16 +85,11 @@ func move_state(delta):
 		var player_tilepos = CurrentLevel.get_player_tilemap_position(self)
 	move()
 
-func update_tool_hit_location(input_vector):
-	if not input_vector:
-		return
-
 func get_input_vector():
 	var input_vector = Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	)
-	last_direction = input_vector
 	return input_vector.normalized()
 
 func move():
