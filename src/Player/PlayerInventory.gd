@@ -3,26 +3,9 @@ extends Node
 const MAX_INVENTORY_SLOTS = 20
 
 var inventory = {
-	0: ["iron_sword", 1], # --> slot_index: [item_path, item_quantity]
-	1: ["tree_branch", 98],
-	2: ["tree_branch", 99],
-	3: ["tree_branch", 99],
-	4: ["tree_branch", 99],
-	5: ["tree_branch", 99],
-	6: ["tree_branch", 99],
-	7: ["tree_branch", 99],
-	8: ["tree_branch", 99],
-	9: ["tree_branch", 99],
-	10: ["tree_branch", 99],
-	11: ["tree_branch", 99],
-	12: ["tree_branch", 99],
-	13: ["tree_branch", 99],
-	14: ["tree_branch", 99],
-	15: ["tree_branch", 99],
-	16: ["tree_branch", 99],
-	17: ["tree_branch", 99],
-	18: ["tree_branch", 99],
-	19: ["tree_branch", 99],
+	# --> slot_index: [item_path, item_quantity]
+	5: ["iron_sword", 1],
+	6: ["tree_branch", 98]
 }
 
 func add_item(item_drop):
@@ -47,13 +30,18 @@ func move_item(slot_id, new_slot_id):
 func get_available_slot(item_id, item_quantity):
 	var first_empty_slot = null
 	var stack_size = ItemData.item_data[item_id]["StackSize"]
+	
+	# Check if there is a partial stack of this item in the inventory
+	# If so, return its slot number
+	for slot in inventory:
+		if inventory[slot][0] != item_id || (inventory[slot][1] + item_quantity) > stack_size:
+			continue
+		return slot
+	
+	# If this item isn't in the invotory, return the first free slot number 
 	for slot in range(MAX_INVENTORY_SLOTS):
-		if !inventory.has(slot) && first_empty_slot == null:
-			first_empty_slot = slot
-		elif inventory.has(slot):
-			var total_item_quantity = inventory[slot][1] + item_quantity
-			if inventory[slot][0] == item_id and total_item_quantity <= stack_size:
-				return slot
-	if first_empty_slot != null:
-		return first_empty_slot
-	return -1 # Return -1, which means that the inventory is full
+		if !inventory.has(slot):
+			return slot
+	
+	# If the inventory is full, return -1
+	return -1
