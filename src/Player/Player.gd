@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 onready var CurrentLevel = get_tree().get_root().get_node("World").get_node("Level")
 onready var ToolHitIndicator = get_parent().get_node("ToolHitIndicatorSprite")
+onready var PlayerLevelPosIndicator = get_parent().get_node("PlayerLevelPosIndicator")
 
 # Animation
 onready var AnimTree = $AnimationTree
@@ -47,6 +48,7 @@ func _physics_process(delta):
 			if input_vector != Vector2.ZERO:
 				state = MOVE
 		MOVE:
+			PlayerLevelPosIndicator.update_indicator(global_position)
 			ToolHitIndicator.visible = false
 			move_state(delta, input_vector)
 	velocity = move_and_slide(velocity)
@@ -96,7 +98,7 @@ func move_state(delta, input_vector):
 		AnimTree.set("parameters/IDLE/blend_position", input_vector)
 		AnimTree.set("parameters/WALK/blend_position", input_vector)
 		animationState.travel("WALK")
-		last_input_direction = input_vector
+		last_input_direction = input_vector.round()
 		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
 	else:
 		emit_signal("player_idling", self)

@@ -21,3 +21,8 @@ func _on_player_idling(player):
 	AnimPlayer.play("IN_RANGE")
 	var player_position = Level.world_to_map(player.global_position)
 	global_position = Level.map_to_world(player_position + player.last_input_direction)
+
+func update_indicator(player_global_position):
+	visible = true
+	var player_level_position = Level.world_to_map(player_global_position)
+	global_position = Level.map_to_world(player_level_position)
